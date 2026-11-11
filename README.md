@@ -9,7 +9,7 @@
 - **Matěj Dostál** –
 - **Matouš Dorazil** –
   
-## 3. Hardware & Komponenty (Component List)
+## 3. Hardware a Komponenty 
 | Komponenta | Typ / Označení | Počet | Poznámka |
 | :--- | :--- | :---: | :--- |
 | Řídicí deska | STM32 / ESP32 / Arduino | 1 | Hlavní MCU |
@@ -25,7 +25,7 @@
 - **Displej (SPI / Sériový):** SPI SCK, MOSI, CS (případně RX/TX podle typu displeje)[cite: 2]
 - **Alarm / LED Indikace:** GPIO Output (PWM / digital)[cite: 2]
 
-### Timing & Concurrency Plan
+### Concurrency Plan
 - **Periodické měření:** Měření vzdálenosti probíhá neblokujícím způsobem v pevném intervalu (např. každých 60 ms)[cite: 2].
 - **Aktualizace displeje:** Obnovování zobrazení naměřené hodnoty 10× za sekundu[cite: 2].
 - **Prahový alarm (Threshold Alarm):** Sledování minimální/maximální vzdálenosti (peak/minimum tracking) a okamžitá změna frekvence pípání/blikání dle vzdálenosti[cite: 2].
