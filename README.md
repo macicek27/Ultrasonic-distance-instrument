@@ -36,7 +36,6 @@ sepne relé (např. výstražné světlo). Teplota ze senzoru BME280 zpřesňuje
 | Ultrazvukový senzor | HC-SR04 | 1 | napájení 5 V, rozsah 2–400 cm, ECHO má 5 V |
 | Dělič napětí | rezistory 1 kΩ + 2 kΩ | 1 sada | ECHO 5 V → ~3,3 V pro Pico |
 | Displej | 4místný 7segmentový displej s TM1637 | 1 | piny CLK, DIO, GND, 5V – napájet z **3,3 V** |
-| Teplotní senzor | BME280 / BMP280 (modul GYBMEP) | 1 | I2C, adresa 0x76 nebo 0x77 |
 | RGB LED | Iduino 3-color LED modul | 1 | společná katoda, rezistory na modulu (piny R, G, B, −) |
 | Relé | 1 Relay Module, SRD-05VDC-SL-C | 1 | napájení 5 V, ovládání pinem IN |
 | Tlačítko | mikrospínač 12 × 12 mm | 1 | proti GND, interní pull-up |
@@ -50,7 +49,6 @@ sepne relé (např. výstražné světlo). Teplota ze senzoru BME280 zpřesňuje
 flowchart LR
     US[HC-SR04] -- ECHO přes dělič --> PICO
     PICO -- TRIG --> US
-    BME[BME280<br/>teplota] -- I2C --> PICO
     BTN[Tlačítko] --> PICO
     PICO[Raspberry Pi Pico W<br/>MicroPython, asyncio]
     PICO -- CLK, DIO --> DISP[Displej TM1637]
