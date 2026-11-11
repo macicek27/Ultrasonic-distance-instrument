@@ -1,6 +1,6 @@
 # Ultrasonic-distance-instrument
 
-## 1. O projektu & Problém
+## 1. O projektu
 - **Popis problému:** Zařízení řeší bezkontaktní měření vzdálenosti k překážce v reálném čase. Slouží jako opticko-akustický parkovací senzor nebo indikátor vzdálenosti.
 - **Klíčová funkce :** Pravidelné měření vzdálenosti v pevném intervalu, zobrazení naměřené hodnoty na displeji a vizuální/akustická signalizace blízko/daleko.
 
