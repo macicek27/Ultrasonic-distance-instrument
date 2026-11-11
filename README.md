@@ -39,10 +39,6 @@ a signalizuje přiblížení LED diodami a bzučákem.
 | Tlačítko | mikrospínač | 1 | reset min/max, interní pull-up |
 | Ostatní | nepájivé pole, vodiče, USB kabel | – | |
 
-**Ověřit s vyučujícím před schválením:**
-- jestli je k dispozici HC-SR04 (5 V), nebo HC-SR04P (3,3 V, ten nepotřebuje dělič),
-- dostupnost displeje Nokia 5110 a typ bzučáku (pasivní/aktivní, piezo/magnetický).
-
 ## 4. Návrh
 
 ### 4.2 Zapojení (pin/bus plán)
