@@ -2,7 +2,7 @@
 
 Bezkontaktní měřič vzdálenosti s ultrazvukovým senzorem HC-SR04 na **Raspberry Pi Pico W** v **MicroPythonu**.
 Vzdálenost se zobrazuje na 4místném displeji, RGB LED ukazuje blízko/daleko a když je překážka moc blízko,
-sepne relé (např. výstražné světlo). Teplota ze senzoru BME280 zpřesňuje výpočet rychlosti zvuku.
+sepne relé (např. výstražné světlo). 
 
 > Projekt do kurzu MicroPython, téma 6 – *Ultrasonic distance instrument*.
 
@@ -16,7 +16,7 @@ sepne relé (např. výstražné světlo). Teplota ze senzoru BME280 zpřesňuje
 - **Rozšíření (až po splnění minima):**
   - relé sepne při vzdálenosti pod 30 cm (prahový alarm),
   - korekce rychlosti zvuku podle teploty z BME280,
-  - tlačítko přepíná displej mezi vzdáleností a teplotou.
+  - tlačítko přepíná displej mezi vzdáleností
 
 ## 2. Tým a rozdělení odpovědností
 
