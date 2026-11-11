@@ -77,17 +77,6 @@ Program používá `asyncio`: úlohy se střídají a žádná dlouho neblokuje 
 
 HC-SR04 se nemá spouštět častěji než po 60 ms, jinak zachytí ozvěnu předchozího měření, proto 100 ms.
 
-## Struktura repozitáře
-
-```
-projekt/projektde/
-├── src/      config.py, hcsr04.py, tm1637.py, rgb_led.py, relay.py, main.py
-├── tests/    test každé součástky zvlášť (2. týden)
-└── docs/     Sphinx dokumentace
-wokwi/        schéma pro simulátor Wokwi
-```
-
-Každá součástka má vlastní třídu, všechny piny jsou v `config.py`.
 
 ## Pokrok
 
