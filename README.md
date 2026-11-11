@@ -20,8 +20,6 @@ a signalizuje přiblížení LED diodami a bzučákem.
 
 ## 2. Tým a rozdělení odpovědností
 
-> Návrh rozdělení – upravte podle dohody. Každý člen musí rozumět celému systému.
-
 | Člen | Hlavní zodpovědnost | Další |
 | :--- | :--- | :--- |
 | **Marcel Hrbáček** | Senzor HC-SR04: třída `HCSR04`, dělič napětí, měření přesnosti a rozsahu | Testy senzoru, měření do dokumentace |
@@ -121,8 +119,6 @@ Všechny piny jsou definované na jednom místě, v [`src/config.py`](src/config
 
 ### 4.4 Plán časování a souběhu
 
-Program běží na `asyncio` (kooperativní multitasking). Žádná úloha neobsahuje dlouhé blokující čekání.
-
 | Činnost | Interval | Jak běží | Zodpovědnost |
 | :--- | :---: | :--- | :--- |
 | Přerušení na pinu ECHO | událost | hard IRQ, obě hrany | jen uloží `ticks_us()` náběžné a sestupné hrany a nastaví příznak |
@@ -140,76 +136,13 @@ Program běží na `asyncio` (kooperativní multitasking). Žádná úloha neobs
   až v běžném kódu, ne v přerušení.
 - Proč displej jen 10 Hz: rychlejší obnova by oko nepostřehlo a zbytečně by zatěžovala procesor.
 
-### 4.5 Ošetření chyb
-
-| Situace | Detekce | Projev |
-| :--- | :--- | :--- |
-| Senzor odpojený / špatně zapojený | po TRIG nepřijde náběžná hrana ECHO | displej „CHYBA SENZ.“, blikající žlutá LED |
-| Mimo rozsah / žádná překážka | ECHO nedokončeno nebo hodnota mimo 2–400 cm | displej „MIMO ROZSAH“ |
-| Displej nefunguje | výjimka při inicializaci | chyba na sériové lince, měření a alarm běží dál |
-| Ojedinělé chybné vzorky | medián z posledních 5 měření | odfiltrováno |
-
-## 5. Instalace a spuštění
-
-1. Nahrajte do Pico W firmware MicroPython (verze 1.22 nebo novější) podle
-   [oficiálního návodu](https://micropython.org/download/RPI_PICO_W/).
-2. Zapojte hardware podle tabulky v kapitole 4.2.
-3. Nahrajte všechny soubory ze složky `src/` do kořene Pica, např. v Thonny (*Upload to /*) nebo pomocí `mpremote`:
-   ```bash
-   mpremote cp src/config.py src/hcsr04.py src/pcd8544.py src/alarm.py src/ui.py src/main.py :
-   ```
-4. Restartujte Pico. `main.py` se spustí automaticky a měření se průběžně vypisuje na sériovou linku.
-
-Projekt nepoužívá žádné externí MicroPython knihovny, jen vestavěné moduly `machine`, `framebuf`, `asyncio` a `time`.
-
 ### Testy komponent
 
-Každou komponentu lze otestovat samostatně. Nahrajte driver a `config.py` a spusťte test, například:
+## 6. Testování a výsledky
 
-```bash
-mpremote cp src/config.py src/hcsr04.py : + run tests/test_hcsr04.py
-```
 
-## 6. Dokumentace (Sphinx)
 
-Zdrojové soubory dokumentace jsou ve složce `docs/`. Lokální sestavení:
 
-```bash
-pip install -r docs/requirements.txt
-```
 
-```bash
-sphinx-build -b html docs docs/_build/html
-```
 
-Výsledek je v `docs/_build/html/index.html`.
 
-## 7. Testování a výsledky
-
-*Doplní se ve 4. týdnu:* přesnost a rozsah senzoru (porovnání s metrem), rozptyl měření, skutečná perioda měření
-a obnovy displeje, chování při chybách, fotky prototypu.
-
-## 8. Prezentace
-
-- Poster: *(odkaz doplnit)*
-- Video (1–2 min): *(odkaz doplnit)*
-
-## 9. Týdenní pokrok
-
-### Týden 1 – návrh a architektura
-- [x] Výběr tématu a klíčové funkce
-- [x] Seznam komponent, pin/bus plán, plán časování
-- [x] Struktura repozitáře a kostra tříd
-- [ ] Schválení návrhu a hardwaru vyučujícím
-- [ ] Potvrzení rozdělení rolí v týmu
-
-### Týden 2 – moduly zařízení (plán)
-- [ ] Otestovat HC-SR04 samostatně (`tests/test_hcsr04.py`), změřit přesnost
-- [ ] Otestovat displej (`tests/test_display.py`)
-- [ ] Otestovat LED a bzučák (`tests/test_alarm.py`)
-- [ ] Aktualizovat schéma zapojení podle skutečného stavu, doplnit dokumentaci tříd
-
-## 10. Licence
-
-Kód je pod licencí MIT, viz [LICENSE](LICENSE). Projekt nepoužívá žádný kód třetích stran. Pokud bude převzat
-kód z cvičení nebo z jiného zdroje, bude zde uveden zdroj a jeho licence.
