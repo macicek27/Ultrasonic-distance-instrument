@@ -20,11 +20,11 @@ sepne relé (např. výstražné světlo). Teplota ze senzoru BME280 zpřesňuje
 
 ## 2. Tým a rozdělení odpovědností
 
-| Člen | Hlavní zodpovědnost |
+| Člen | zodpovědnost |
 | :--- | :--- |
-| **Marcel Hrbáček** | |
-| **Matěj Dostál** | |
-| **Matouš Dorazil** | |
+| **Marcel Hrbáček** | Github |
+| **Matěj Dostál** | visualstudio |
+| **Matouš Dorazil** | Blokové schéma |
 
 ## 3. Hardware
 
