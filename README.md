@@ -45,38 +45,6 @@ a signalizuje přiblížení LED diodami a bzučákem.
 
 ## 4. Návrh
 
-### 4.1 Blokové schéma
-
-```mermaid
-flowchart LR
-    subgraph Vstupy
-        US[HC-SR04<br/>ultrazvukový senzor]
-        BTN[Tlačítko<br/>reset min/max]
-    end
-    subgraph Pico["Raspberry Pi Pico W (MicroPython)"]
-        IRQ[IRQ na ECHO<br/>časové značky hran]
-        MEAS[measure_task<br/>výpočet + medián]
-        STATE[(Sdílený stav<br/>vzdálenost, min, max, stav)]
-        DISP[display_task]
-        ALM[alarm_task]
-        BT[button_task]
-    end
-    subgraph Výstupy
-        LCD[Nokia 5110<br/>SPI displej]
-        LED[LED zelená/žlutá/červená]
-        BUZ[Piezo bzučák PWM]
-        SER[Sériová linka USB<br/>log měření]
-    end
-    MEAS -- TRIG 10 µs --> US
-    US -- ECHO přes dělič --> IRQ
-    IRQ --> MEAS --> STATE
-    BTN --> BT --> STATE
-    STATE --> DISP --> LCD
-    STATE --> ALM --> LED
-    ALM --> BUZ
-    STATE --> SER
-```
-
 ### 4.2 Zapojení (pin/bus plán)
 
 | Signál | Pico W GPIO | Fyzický pin | Poznámka |
@@ -98,43 +66,6 @@ flowchart LR
 | LED červená | GP12 | 16 | přes 330 Ω na GND |
 | Bzučák | GP13 (PWM) | 17 | pasivní piezo; druhý vývod na GND |
 | Tlačítko | GP16 | 21 | proti GND, interní pull-up |
-
-**Bezpečnost:** GPIO Pica snese jen 3,3 V. ECHO z HC-SR04 (5 V) se proto nikdy nepřipojuje přímo, ale přes
-dělič (5 V · 2/3 ≈ 3,3 V). Všechny zemi jsou společné. Bzučák s vyšším odběrem (magnetický) se spíná přes NPN
-tranzistor s ochrannou diodou.
-
-Všechny piny jsou definované na jednom místě, v [`src/config.py`](src/config.py).
-
-### 4.3 Softwarové moduly
-
-| Soubor | Obsah | Role |
-| :--- | :--- | :--- |
-| `src/config.py` | konstanty | piny, prahy vzdálenosti, periody úloh |
-| `src/hcsr04.py` | třída `HCSR04` | driver senzoru; neblokující měření pomocí přerušení |
-| `src/pcd8544.py` | třída `PCD8544` | driver displeje Nokia 5110 (framebuffer + SPI) |
-| `src/alarm.py` | třída `Alarm` | LED a bzučák, úrovně alarmu, neblokující rytmus pípání |
-| `src/ui.py` | třída `Screen` | rozvržení obrazovky (hodnota, sloupcový graf, min/max, chyby) |
-| `src/main.py` | aplikace | `asyncio` úlohy, filtr, sdílený stav, ošetření chyb |
-| `tests/` | testy komponent | samostatné ověření každé komponenty na Picu |
-
-### 4.4 Plán časování a souběhu
-
-| Činnost | Interval | Jak běží | Zodpovědnost |
-| :--- | :---: | :--- | :--- |
-| Přerušení na pinu ECHO | událost | hard IRQ, obě hrany | jen uloží `ticks_us()` náběžné a sestupné hrany a nastaví příznak |
-| `measure_task` | 60 ms | `asyncio` úloha | vyšle TRIG, po 60 ms přečte výsledek, spočítá cm, medián z 5 vzorků, min/max |
-| `display_task` | 100 ms (10 Hz) | `asyncio` úloha | vykreslí obrazovku do framebufferu a pošle ji po SPI (~1 ms) |
-| `alarm_task` | 20 ms | `asyncio` úloha | podle vzdálenosti nastaví úroveň alarmu, řídí LED a rytmus bzučáku |
-| `button_task` | 20 ms | `asyncio` úloha | čtení tlačítka s odrušením zákmitů, reset min/max |
-| `log_task` | 1 s | `asyncio` úloha | výpis měření na sériovou linku (data pro testování) |
-
-**Proč takto:**
-- Proč 60 ms: výrobce doporučuje mezi měřeními aspoň 60 ms, aby se nezachytila ozvěna předchozího pulzu. Nejdelší
-  ECHO pulz (bez překážky) trvá ~38 ms, takže výsledek je vždy hotový před dalším spuštěním.
-- Proč přerušení místo `machine.time_pulse_us()`: `time_pulse_us()` blokuje až desítky ms, a tím by zastavil displej
-  i alarm. Hard IRQ zaznamená čas hrany s přesností na µs i během posílání dat na displej. Výpočet vzdálenosti se dělá
-  až v běžném kódu, ne v přerušení.
-- Proč displej jen 10 Hz: rychlejší obnova by oko nepostřehlo a zbytečně by zatěžovala procesor.
 
 ### Testy komponent
 
