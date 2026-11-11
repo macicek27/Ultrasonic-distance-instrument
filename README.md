@@ -43,29 +43,7 @@ a signalizuje přiblížení LED diodami a bzučákem.
 
 ### 4.2 Zapojení (pin/bus plán)
 
-| Signál | Pico W GPIO | Fyzický pin | Poznámka |
-| :--- | :--- | :---: | :--- |
-| HC-SR04 VCC | VBUS (5 V z USB) | 40 | senzor potřebuje 5 V |
-| HC-SR04 GND | GND | 38 | společná zem |
-| HC-SR04 TRIG | GP14 | 19 | výstup, 3,3 V stačí na spuštění |
-| HC-SR04 ECHO | GP15 | 20 | **přes dělič:** ECHO → 1 kΩ → GP15, GP15 → 2 kΩ → GND |
-| Nokia 5110 VCC | 3V3(OUT) | 36 | |
-| Nokia 5110 GND | GND | 23 | |
-| Nokia 5110 CLK | GP18 (SPI0 SCK) | 24 | |
-| Nokia 5110 DIN | GP19 (SPI0 TX/MOSI) | 25 | |
-| Nokia 5110 CE | GP17 (SPI0 CSn) | 22 | |
-| Nokia 5110 DC | GP20 | 26 | |
-| Nokia 5110 RST | GP21 | 27 | |
-| Nokia 5110 BL | GP22 | 29 | podsvícení (volitelné, ověřit polaritu modulu) |
-| LED zelená | GP10 | 14 | přes 330 Ω na GND |
-| LED žlutá | GP11 | 15 | přes 330 Ω na GND |
-| LED červená | GP12 | 16 | přes 330 Ω na GND |
-| Bzučák | GP13 (PWM) | 17 | pasivní piezo; druhý vývod na GND |
-| Tlačítko | GP16 | 21 | proti GND, interní pull-up |
 
-### Testy komponent
-
-## 6. Testování a výsledky
 
 
 
