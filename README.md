@@ -5,9 +5,9 @@
 - **Klíčová funkce :** Pravidelné měření vzdálenosti v pevném intervalu, zobrazení naměřené hodnoty na displeji a vizuální/akustická signalizace blízko/daleko.
 
 ## 2. Tým a rozdělení odpovědností
-- **[Marcel Hrbáček]** – 
-- **[Matěj Dostál]** –
-- **[Matouš Dorazil]** –
+- **Marcel Hrbáček** – 
+- **Matěj Dostál** –
+- **Matouš Dorazil** –
   
 ## 3. Hardware & Komponenty (Component List)
 | Komponenta | Typ / Označení | Počet | Poznámka |
