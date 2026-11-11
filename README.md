@@ -20,13 +20,11 @@ sepne relé (např. výstražné světlo). Teplota ze senzoru BME280 zpřesňuje
 
 ## 2. Tým a rozdělení odpovědností
 
-> Návrh rozdělení – upravte podle dohody. Každý člen musí rozumět celému systému.
-
 | Člen | Hlavní zodpovědnost |
 | :--- | :--- |
-| **Marcel Hrbáček** | HC-SR04 (třída `HCSR04`, dělič napětí, měření přesnosti) a BME280 (třída `BMP280`) |
-| **Matěj Dostál** | Displej TM1637 (třída `TM1637`) a tlačítko, schéma zapojení, poster |
-| **Matouš Dorazil** | RGB LED (`RgbLed`), relé (`Relay`), hlavní program `main.py`, Sphinx dokumentace, video |
+| **Marcel Hrbáček** | |
+| **Matěj Dostál** | |
+| **Matouš Dorazil** | |
 
 ## 3. Hardware
 
