@@ -48,7 +48,7 @@ flowchart LR
 
 ## Zapojení
 
-![Popis obrázku](nazev_obrazku.png)
+![Schéma zapojení](wokwi_zapojeni.png)
 
 Schéma ve Wokwi: **https://wokwi.com/projects/480396275911174145**
 
