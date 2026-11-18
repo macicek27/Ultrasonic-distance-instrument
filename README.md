@@ -1,6 +1,5 @@
 # Ultrasonic distance instrument
 
-Projekt do kurzu MicroPython, téma 6 – *Ultrasonic distance instrument*.
 **Týden 1 – návrh a architektura.**
 
 ## Tým
