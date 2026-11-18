@@ -77,16 +77,3 @@ Program používá `asyncio`: úlohy se střídají a žádná dlouho neblokuje 
 
 HC-SR04 se nemá spouštět častěji než po 60 ms, jinak zachytí ozvěnu předchozího měření, proto 100 ms.
 
-
-## Pokrok
-
-### Týden 1 – návrh a architektura
-- [x] Téma a klíčová funkce
-- [x] Seznam součástek
-- [x] Blokové schéma a zapojení (Wokwi)
-- [x] Plán časování
-- [x] Struktura repozitáře a třídy součástek
-- [ ] Schválení návrhu vyučujícím
-
-### Týden 2 – plán
-- [ ] Otestovat každou součástku samostatně na skutečném hardwaru
