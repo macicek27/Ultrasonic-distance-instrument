@@ -66,6 +66,25 @@ Schéma ve Wokwi: **https://wokwi.com/projects/481025245266264065**
 **Bezpečnost:** piny Pica snesou jen 3,3 V, proto má Echo z HC-SR04 (5 V) dělič napětí.
 Relé spíná jen malé napětí, žádných 230 V.
 
+### Piny Raspberry Pi Pico W
+
+| Pin Pica | Fyzický pin | Připojeno k | Poznámka |
+| :--- | :---: | :--- | :--- |
+| GP2 | 4 | Tlačítko HOLD | druhá strana tlačítka na GND |
+| GP6 | 9 | HC-SR04 Echo | **přes dělič** 1 kΩ + 2 kΩ |
+| GP7 | 10 | HC-SR04 Trig | |
+| GP8 | 11 | RGB LED – B | |
+| GP9 | 12 | RGB LED – G | |
+| GP10 | 14 | RGB LED – R | |
+| GP13 | 17 | Relé – IN | |
+| GP16 | 21 | TM1637 – CLK | |
+| GP17 | 22 | TM1637 – DIO | |
+| VBUS (5 V) | 40 | lišta + na nepájivém poli | HC-SR04 Vcc, relé VCC |
+| 3V3(OUT) | 36 | TM1637 – 5V | displej napájet z 3,3 V |
+| GND | 3, 8, 13, 18, 23, 28, 33, 38 | lišta − a GND všech modulů | všechny země spojené |
+
+Fyzický pin = pořadové číslo nožičky Pica (pin 1 je vlevo nahoře u USB, piny 1–20 vlevo shora dolů, 21–40 vpravo zdola nahoru).
+
 ## Plán časování
 
 Program používá `asyncio`: úlohy se střídají a žádná dlouho neblokuje ostatní.
