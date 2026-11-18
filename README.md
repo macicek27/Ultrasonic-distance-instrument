@@ -44,7 +44,8 @@ flowchart LR
 ```
 
 ## Zapojení
-![Popis](images/Schéma zapojení.png)
+![Schéma zapojení wokiw](images/Schéma zapojení.png)
+
 ### Schéma zapojení
 
 ![Schéma zapojení](images/schema_zapojeni.svg)
