@@ -1,7 +1,5 @@
 # Ultrasonic distance instrument
 
-**Týden 1 – návrh a architektura.**
-
 ## Tým
 
 | Člen | Zodpovědnost |
