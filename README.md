@@ -44,7 +44,7 @@ flowchart LR
 ```
 
 ## Zapojení
-![Schéma zapojení wokiw](images/Schéma zapojení.png)
+![Schéma zapojení wokiw](images/wokwi_zapojeni.png)
 
 ### Schéma zapojení
 
