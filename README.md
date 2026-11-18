@@ -50,7 +50,7 @@ flowchart LR
 
 ![wokwi_zapojeni.png](wokwi_zapojeni.png)
 
-Schéma ve Wokwi: **https://wokwi.com/projects/480396275911174145**
+Schéma ve Wokwi: **https://wokwi.com/projects/481025245266264065**
 
 | Součástka – pin | Pico W | Poznámka |
 | :--- | :--- | :--- |
