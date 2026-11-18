@@ -44,13 +44,12 @@ flowchart LR
 ```
 
 ## Zapojení
-
+![Popis](images/Schéma zapojení.png)
 ### Schéma zapojení
 
 ![Schéma zapojení](images/schema_zapojeni.svg)
 
 ### Simulace ve Wokwi
-![Popis](images/Schéma zapojení.png)
 
 Simulace: **https://wokwi.com/projects/480396275911174145** (zdroj schématu: [`wokwi/diagram.json`](wokwi/diagram.json))
 
