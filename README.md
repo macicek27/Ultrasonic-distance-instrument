@@ -117,36 +117,6 @@ Firmware: https://micropython.org/download/RPI_PICO_W/
 
 **Vývojové prostředí:** VS Code + rozšíření MicroPico (nahrávání kódu do Pica), dokumentace Sphinx (jen na PC).
 
-## Struktura repozitáře
-
-```
-projekt/projektde/
-├── src/      config.py, hcsr04.py, tm1637.py, rgb_led.py, relay.py, main.py
-├── tests/    test každé součástky zvlášť (2. týden)
-└── docs/     Sphinx dokumentace
-images/       schéma zapojení (SVG) a obrázek z Wokwi
-wokwi/        schéma pro simulátor Wokwi (diagram.json)
-```
-
-Každá součástka má vlastní třídu, všechny piny jsou v `config.py`.
-
-## Pokrok
-
-### Týden 1 – návrh a architektura
-- [x] Téma a klíčová funkce
-- [x] Seznam součástek
-- [x] Blokové schéma a zapojení (Wokwi)
-- [x] Plán časování
-- [x] Struktura repozitáře a třídy součástek
-- [ ] Schválení návrhu vyučujícím
-
-### Týden 2 – testy součástek
-- [x] HC-SR04 otestován samostatně a zkalibrován (viz níže)
-- [x] Displej TM1637 (`test_tm1637.py`) – zobrazí čísla 0–9999, `----`, `Err` a mění jas
-- [x] RGB LED, relé a tlačítko (`test_led_relay_button.py`) – barvy zelená/žlutá/červená/modrá, relé spíná,
-  tlačítko reaguje
-- [x] Aktualizované schéma zapojení (piny přesunuty do sekce Digital rozšiřující desky)
-- [x] Dokumentace tříd (docstringy, Sphinx v `projekt/projektde/docs`)
 
 #### HC-SR04 – výsledky měření
 
@@ -162,12 +132,4 @@ Měřeno testem `tests/test_hcsr04.py` (20 měření, perioda 100 ms) proti pevn
 - Kalibrace (lineární regrese ze 3 bodů): **skutečná = 0,972 · naměřená − 5,0 cm**, po ní je chyba do ±1 cm.
   Konstanty jsou v `config.py` (`CAL_SCALE`, `CAL_OFFSET_CM`).
 
-#### Problémy a jejich řešení
 
-- **Senzor neměřil (`error` / `out_of_range`)** – příčinou byl rezistor děliče bez kontaktu. Nalezeno
-  diagnostickými skripty `tests/diag_vodice.py` (test vodičů) a `tests/diag_hcsr04.py` (délka pulzu Echo).
-- **GP6/GP7 nejsou v sekci Digital** rozšiřující desky → všechny signály jsme přesunuli na GP14–GP22,
-  kde má každý pin trojici D / 3V3 / GND.
-- **Vodiče s dutinkou nemají v nepájivém poli kontakt** – do pole je nutné zapojovat kolíky.
-- **Na Picu byla stará knihovna `/lib/tm1637.py`** ze cvičení s jiným rozhraním – smazali jsme ji a nahráli
-  vlastní `tm1637.py` do kořene Pica (soubory v kořeni mají přednost před `/lib`).
