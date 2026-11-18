@@ -1,6 +1,5 @@
 # Ultrasonic distance instrument
 
-Projekt do kurzu MicroPython, téma 6 – *Ultrasonic distance instrument*.
 **Týden 1 – návrh a architektura.**
 
 ## Tým
@@ -78,4 +77,6 @@ Program používá `asyncio`: úlohy se střídají a žádná dlouho neblokuje 
 | tlačítko | 20 ms | čte tlačítko, přepíná HOLD |
 
 HC-SR04 se nemá spouštět častěji než po 60 ms, jinak zachytí ozvěnu předchozího měření, proto 100 ms.
+
+Verze micropythonu v1.29.0
 
