@@ -52,15 +52,8 @@ flowchart LR
 
 ![Schéma zapojení](images/schema_zapojeni.svg)
 
-### HC-SR04 a dělič na nepájivém poli
-
-![Zapojení na nepájivém poli](images/zapojeni_nepajive_pole.svg)
-
-Na našem nepájivém poli je vždy propojených 5 dírek v jednom řádku bloku (např. C1–C5),
-drážka mezi bloky je nepropojuje.
-
 ### Simulace ve Wokwi
-
+![Schéma zapojení](images/Schéma zapojení.png)
 Simulace: **https://wokwi.com/projects/480396275911174145** (zdroj schématu: [`wokwi/diagram.json`](wokwi/diagram.json))
 
 ### Piny Raspberry Pi Pico W
