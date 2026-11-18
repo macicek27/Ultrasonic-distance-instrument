@@ -1,5 +1,6 @@
 # Ultrasonic distance instrument
 
+Projekt do kurzu MicroPython, téma 6 – *Ultrasonic distance instrument*.
 **Týden 1 – návrh a architektura.**
 
 ## Tým
@@ -47,43 +48,43 @@ flowchart LR
 
 ## Zapojení
 
-![Popis](images/wokwi_zapojeni.png)
+### Schéma zapojení
 
-Schéma ve Wokwi: **https://wokwi.com/projects/481025245266264065**
+![Schéma zapojení](images/schema_zapojeni.svg)
 
-| Součástka – pin | Pico W | Poznámka |
-| :--- | :--- | :--- |
-| HC-SR04 Vcc | VBUS (5 V) | přes lištu + na nepájivém poli |
-| HC-SR04 Trig | GP7 | |
-| HC-SR04 Echo | GP6 | přes dělič 1 kΩ + 2 kΩ (5 V → 3,3 V) |
-| HC-SR04 Gnd | GND | přes lištu − na nepájivém poli |
-| TM1637 CLK / DIO | GP16 / GP17 | |
-| TM1637 5V | **3V3** | napájet z 3,3 V, ne z 5 V |
-| RGB LED B / G / R | GP8 / GP9 / GP10 | pin − na GND |
-| Relé IN | GP13 | VCC na 5 V, GND na GND |
-| Tlačítko | GP2 a GND | interní pull-up |
+### HC-SR04 a dělič na nepájivém poli
 
-**Bezpečnost:** piny Pica snesou jen 3,3 V, proto má Echo z HC-SR04 (5 V) dělič napětí.
-Relé spíná jen malé napětí, žádných 230 V.
+![Zapojení na nepájivém poli](images/zapojeni_nepajive_pole.svg)
+
+Na našem nepájivém poli je vždy propojených 5 dírek v jednom řádku bloku (např. C1–C5),
+drážka mezi bloky je nepropojuje.
+
+### Simulace ve Wokwi
+
+Simulace: **https://wokwi.com/projects/480396275911174145** (zdroj schématu: [`wokwi/diagram.json`](wokwi/diagram.json))
 
 ### Piny Raspberry Pi Pico W
 
+Všechny signály jsou v sekci **Digital** rozšiřující desky – u každého GPIO je trojice pinů **D / 3V3 / GND**,
+signál se zapojuje do zeleného pinu **D**.
+
 | Pin Pica | Fyzický pin | Připojeno k | Poznámka |
 | :--- | :---: | :--- | :--- |
-| GP2 | 4 | Tlačítko HOLD | druhá strana tlačítka na GND |
-| GP6 | 9 | HC-SR04 Echo | **přes dělič** 1 kΩ + 2 kΩ |
-| GP7 | 10 | HC-SR04 Trig | |
-| GP8 | 11 | RGB LED – B | |
-| GP9 | 12 | RGB LED – G | |
-| GP10 | 14 | RGB LED – R | |
-| GP13 | 17 | Relé – IN | |
+| GP14 | 19 | HC-SR04 Trig | |
+| GP15 | 20 | HC-SR04 Echo | **přes dělič** 1 kΩ + 2 kΩ |
 | GP16 | 21 | TM1637 – CLK | |
 | GP17 | 22 | TM1637 – DIO | |
-| VBUS (5 V) | 40 | lišta + na nepájivém poli | HC-SR04 Vcc, relé VCC |
+| GP18 | 24 | RGB LED – R | |
+| GP19 | 25 | RGB LED – G | |
+| GP20 | 26 | RGB LED – B | |
+| GP21 | 27 | Relé – IN | |
+| GP22 | 29 | Tlačítko HOLD | druhá strana tlačítka na GND |
+| VBUS (5 V) | 40 | HC-SR04 Vcc, relé VCC | |
 | 3V3(OUT) | 36 | TM1637 – 5V | displej napájet z 3,3 V |
-| GND | 3, 8, 13, 18, 23, 28, 33, 38 | lišta − a GND všech modulů | všechny země spojené |
+| GND | 3, 8, 13, 18, 23, 28, 33, 38 | GND všech součástek | všechny země spojené |
 
-Fyzický pin = pořadové číslo nožičky Pica (pin 1 je vlevo nahoře u USB, piny 1–20 vlevo shora dolů, 21–40 vpravo zdola nahoru).
+**Bezpečnost:** piny Pica snesou jen 3,3 V, proto má Echo z HC-SR04 (5 V) dělič napětí.
+Relé spíná jen malé napětí, žádných 230 V.
 
 ## Plán časování
 
@@ -97,5 +98,76 @@ Program používá `asyncio`: úlohy se střídají a žádná dlouho neblokuje 
 
 HC-SR04 se nemá spouštět častěji než po 60 ms, jinak zachytí ozvěnu předchozího měření, proto 100 ms.
 
-Verze micropythonu v1.29.0
+## Software
 
+**MicroPython:** v1.29.0 (firmware `RPI_PICO_W`, vydáno 24. 8. 2026) na našem Pico W. Simulace Wokwi používá v1.28.0,
+rozdíl na projekt nemá vliv.
+Firmware: https://micropython.org/download/RPI_PICO_W/
+
+**Použité knihovny** – jen vestavěné moduly MicroPythonu, nic se nemusí instalovat:
+
+| Knihovna | K čemu ji používáme |
+| :--- | :--- |
+| `machine` | `Pin` (ovládání GPIO), `time_pulse_us` (měření délky pulzu Echo) |
+| `time` | `sleep_us`, `sleep_ms` (krátké čekání, 10 µs pulz pro Trig) |
+| `asyncio` | souběžné úlohy (měření, displej, tlačítko) |
+
+**Vlastní moduly** (`projekt/projektde/src/`): `hcsr04.py`, `tm1637.py`, `rgb_led.py`, `relay.py`,
+`config.py`, `main.py`. Třídy pro součástky jsme napsali sami, žádný kód třetích stran.
+
+**Vývojové prostředí:** VS Code + rozšíření MicroPico (nahrávání kódu do Pica), dokumentace Sphinx (jen na PC).
+
+## Struktura repozitáře
+
+```
+projekt/projektde/
+├── src/      config.py, hcsr04.py, tm1637.py, rgb_led.py, relay.py, main.py
+├── tests/    test každé součástky zvlášť (2. týden)
+└── docs/     Sphinx dokumentace
+images/       schéma zapojení (SVG) a obrázek z Wokwi
+wokwi/        schéma pro simulátor Wokwi (diagram.json)
+```
+
+Každá součástka má vlastní třídu, všechny piny jsou v `config.py`.
+
+## Pokrok
+
+### Týden 1 – návrh a architektura
+- [x] Téma a klíčová funkce
+- [x] Seznam součástek
+- [x] Blokové schéma a zapojení (Wokwi)
+- [x] Plán časování
+- [x] Struktura repozitáře a třídy součástek
+- [ ] Schválení návrhu vyučujícím
+
+### Týden 2 – testy součástek
+- [x] HC-SR04 otestován samostatně a zkalibrován (viz níže)
+- [x] Displej TM1637 (`test_tm1637.py`) – zobrazí čísla 0–9999, `----`, `Err` a mění jas
+- [x] RGB LED, relé a tlačítko (`test_led_relay_button.py`) – barvy zelená/žlutá/červená/modrá, relé spíná,
+  tlačítko reaguje
+- [x] Aktualizované schéma zapojení (piny přesunuty do sekce Digital rozšiřující desky)
+- [x] Dokumentace tříd (docstringy, Sphinx v `projekt/projektde/docs`)
+
+#### HC-SR04 – výsledky měření
+
+Měřeno testem `tests/test_hcsr04.py` (20 měření, perioda 100 ms) proti pevné překážce, vzdálenost změřena metrem.
+
+| Skutečná vzdálenost | Naměřeno (průměr) | Min – max | Po kalibraci |
+| :---: | :---: | :---: | :---: |
+| 10 cm | 14,6 cm | 14,6 – 15,0 cm | 9,2 cm |
+| 30 cm | 37,1 cm | 36,5 – 37,8 cm | 31,1 cm |
+| 100 cm | 107,8 cm | 107,5 – 108,4 cm | 99,8 cm |
+
+- Senzor měří stabilně (rozptyl do 1,3 cm), ale ukazoval zhruba o 5 cm víc.
+- Kalibrace (lineární regrese ze 3 bodů): **skutečná = 0,972 · naměřená − 5,0 cm**, po ní je chyba do ±1 cm.
+  Konstanty jsou v `config.py` (`CAL_SCALE`, `CAL_OFFSET_CM`).
+
+#### Problémy a jejich řešení
+
+- **Senzor neměřil (`error` / `out_of_range`)** – příčinou byl rezistor děliče bez kontaktu. Nalezeno
+  diagnostickými skripty `tests/diag_vodice.py` (test vodičů) a `tests/diag_hcsr04.py` (délka pulzu Echo).
+- **GP6/GP7 nejsou v sekci Digital** rozšiřující desky → všechny signály jsme přesunuli na GP14–GP22,
+  kde má každý pin trojici D / 3V3 / GND.
+- **Vodiče s dutinkou nemají v nepájivém poli kontakt** – do pole je nutné zapojovat kolíky.
+- **Na Picu byla stará knihovna `/lib/tm1637.py`** ze cvičení s jiným rozhraním – smazali jsme ji a nahráli
+  vlastní `tm1637.py` do kořene Pica (soubory v kořeni mají přednost před `/lib`).
