@@ -50,7 +50,8 @@ flowchart LR
 ![Schéma zapojení](images/schema_zapojeni.svg)
 
 ### Simulace ve Wokwi
-![Schéma zapojení](images/Schéma zapojení.png)
+![Popis](images/Schéma zapojení.png)
+
 Simulace: **https://wokwi.com/projects/480396275911174145** (zdroj schématu: [`wokwi/diagram.json`](wokwi/diagram.json))
 
 ### Piny Raspberry Pi Pico W
