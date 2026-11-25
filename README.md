@@ -13,8 +13,10 @@
 Bezkontaktní měřič vzdálenosti s Raspberry Pi Pico W. Funguje jako parkovací senzor:
 
 - měří vzdálenost ultrazvukovým senzorem HC-SR04 10× za sekundu,
-- zobrazuje vzdálenost v cm na 4místném displeji,
-- RGB LED ukazuje vzdálenost barvou: zelená nad 100 cm, žlutá 30–100 cm, červená pod 30 cm,
+- zobrazuje vzdálenost v cm na 4místném displeji – pod 100 cm s jedním desetinným místem, jako desetinná
+  čárka slouží dvojtečka displeje (např. `29:6` = 29,6 cm), od 100 cm celé číslo,
+- RGB LED ukazuje vzdálenost barvou: zelená od 50 cm, fialová 30–50 cm, červená pod 30 cm
+  (původně žlutá, ale ta na našem LED modulu nebyla vidět),
 - pod 30 cm sepne relé (např. výstražné světlo),
 - tlačítko HOLD zmrazí hodnotu na displeji.
 
@@ -62,7 +64,7 @@ signál se zapojuje do zeleného pinu **D**.
 | Pin Pica | Fyzický pin | Připojeno k | Poznámka |
 | :--- | :---: | :--- | :--- |
 | GP14 | 19 | HC-SR04 Trig | |
-| GP15 | 20 | HC-SR04 Echo | **přes dělič** 1 kΩ + 2 kΩ |
+| GP15 | 20 | HC-SR04 Echo | **přes dělič**: 2 kΩ od Echo, 1 kΩ k zemi |
 | GP16 | 21 | TM1637 – CLK | |
 | GP17 | 22 | TM1637 – DIO | |
 | GP18 | 24 | RGB LED – R | |

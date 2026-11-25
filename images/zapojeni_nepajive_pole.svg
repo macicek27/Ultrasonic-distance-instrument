@@ -68,18 +68,18 @@
   </g>
 
   <!-- ====== rezistory ====== -->
-  <!-- 1 kΩ: C3 -> F3 -->
+  <!-- 2 kΩ: C3 -> F3 -->
   <line x1="260" y1="160" x2="260" y2="250" stroke="#777" stroke-width="2"/>
   <rect x="251" y="180" width="18" height="50" rx="5" fill="#90caf9" stroke="#1565c0" stroke-width="1.5"/>
-  <rect x="251" y="188" width="18" height="4" fill="#795548"/><rect x="251" y="196" width="18" height="4" fill="#000"/><rect x="251" y="204" width="18" height="4" fill="#d32f2f"/>
+  <rect x="251" y="188" width="18" height="4" fill="#d32f2f"/><rect x="251" y="196" width="18" height="4" fill="#000"/><rect x="251" y="204" width="18" height="4" fill="#d32f2f"/>
   <circle cx="260" cy="160" r="5" fill="#6a1b9a"/><circle cx="260" cy="250" r="5" fill="#00838f"/>
-  <text x="246" y="210" text-anchor="end" font-weight="bold" fill="#222">1 kΩ</text>
-  <!-- 2 kΩ: D4 -> F4 -->
+  <text x="246" y="210" text-anchor="end" font-weight="bold" fill="#222">2 kΩ</text>
+  <!-- 1 kΩ: D4 -> F4 -->
   <line x1="290" y1="190" x2="290" y2="250" stroke="#777" stroke-width="2"/>
   <rect x="281" y="198" width="18" height="44" rx="5" fill="#90caf9" stroke="#1565c0" stroke-width="1.5"/>
-  <rect x="281" y="205" width="18" height="4" fill="#d32f2f"/><rect x="281" y="213" width="18" height="4" fill="#000"/><rect x="281" y="221" width="18" height="4" fill="#d32f2f"/>
+  <rect x="281" y="205" width="18" height="4" fill="#795548"/><rect x="281" y="213" width="18" height="4" fill="#000"/><rect x="281" y="221" width="18" height="4" fill="#d32f2f"/>
   <circle cx="290" cy="190" r="5" fill="#424242"/><circle cx="290" cy="250" r="5" fill="#00838f"/>
-  <text x="304" y="238" font-weight="bold" fill="#222">2 kΩ</text>
+  <text x="304" y="238" font-weight="bold" fill="#222">1 kΩ</text>
 
   <!-- ====== vodiče do Pica ====== -->
   <g stroke-width="4" fill="none" stroke-linecap="round">
@@ -109,7 +109,7 @@
     <text x="30" y="385" font-weight="bold">Jak je pole propojené</text>
     <text x="30" y="404">• propojených je vždy 5 dírek v jednom řádku bloku (např. C1–C5) – barevné pásky</text>
     <text x="30" y="422">• drážka mezi bloky 1–5 a 6–10 řádky NEpropojuje (C5 a C6 nejsou spojené)</text>
-    <text x="30" y="440">• řádek F = střed děliče (≈ 3,3 V) → GP15;  řádek D = GND (Gnd senzoru i konec 2 kΩ)</text>
+    <text x="30" y="440">• řádek F = střed děliče → GP15;  řádek D = GND (Gnd senzoru i konec 1 kΩ)</text>
     <text x="30" y="458">• horní lišty + / − zatím nepoužívejte; senzor otočte tak, aby Vcc byl v A1 a Gnd v D1</text>
   </g>
 </svg>
