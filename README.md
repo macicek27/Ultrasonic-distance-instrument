@@ -106,7 +106,7 @@ Firmware: https://micropython.org/download/RPI_PICO_W/
 | `asyncio` | souběžné úlohy (měření, displej, tlačítko) |
 
 **Vlastní moduly** (`src/`): `hcsr04.py`, `tm1637.py`, `rgb_led.py`, `relay.py`,
-`config.py`, `main.py`. Třídy pro součástky jsme napsali sami, žádný kód třetích stran.
+`config.py`, `main.py`. 
 
 **Vývojové prostředí:** VS Code + rozšíření MicroPico (nahrávání kódu do Pica), dokumentace Sphinx (jen na PC).
 
