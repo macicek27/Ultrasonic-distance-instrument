@@ -103,7 +103,7 @@ Firmware: https://micropython.org/download/RPI_PICO_W/
 | `time` | `sleep_us`, `sleep_ms` (krátké čekání, 10 µs pulz pro Trig) |
 | `asyncio` | souběžné úlohy (měření, displej, tlačítko) |
 
-**Vlastní moduly** (`projekt/projektde/src/`): `hcsr04.py`, `tm1637.py`, `rgb_led.py`, `relay.py`,
+**Vlastní moduly** (`src/`): `hcsr04.py`, `tm1637.py`, `rgb_led.py`, `relay.py`,
 `config.py`, `main.py`. Třídy pro součástky jsme napsali sami, žádný kód třetích stran.
 
 **Vývojové prostředí:** VS Code + rozšíření MicroPico (nahrávání kódu do Pica), dokumentace Sphinx (jen na PC).
@@ -111,16 +111,21 @@ Firmware: https://micropython.org/download/RPI_PICO_W/
 
 #### HC-SR04 – výsledky měření
 
-Měřeno testem `tests/test_hcsr04.py` (20 měření, perioda 100 ms) proti pevné překážce, vzdálenost změřena metrem.
+Měřeno proti pevné kolmé překážce, vzdálenost změřena metrem od čela kovových válečků senzoru.
+Hodnoty jsou z displeje a konzole při běhu `main.py`, bez kalibrace.
 
-| Skutečná vzdálenost | Naměřeno (průměr) | Min – max | Po kalibraci |
-| :---: | :---: | :---: | :---: |
-| 10 cm | 14,6 cm | 14,6 – 15,0 cm | 9,2 cm |
-| 30 cm | 37,1 cm | 36,5 – 37,8 cm | 31,1 cm |
-| 100 cm | 107,8 cm | 107,5 – 108,4 cm | 99,8 cm |
+| Skutečná vzdálenost | Naměřeno | Chyba |
+| :---: | :---: | :---: |
+| 10 cm | 10,0 cm | 0,0 cm |
+| 30 cm | 29,6 cm | −0,4 cm |
+| 50 cm | 49,1 cm | −0,9 cm |
+| 70 cm | 69,3 cm | −0,7 cm |
+| 90 cm | 89,4 cm | −0,6 cm |
 
-- Senzor měří stabilně (rozptyl do 1,3 cm), ale ukazoval zhruba o 5 cm víc.
-- Kalibrace (lineární regrese ze 3 bodů): **skutečná = 0,972 · naměřená − 5,0 cm**, po ní je chyba do ±1 cm.
-  Konstanty jsou v `config.py` (`CAL_SCALE`, `CAL_OFFSET_CM`).
+- Senzor měří s chybou **do 1 cm** (průměrná absolutní chyba 0,5 cm) v rozsahu 10–90 cm, kalibrace není potřeba.
+- První měření ukazovalo offset asi +5 cm. Kontrolní měření ho nepotvrdilo – šlo o chybu měření
+  (malá nebo šikmá překážka, vzdálenost měřená od jiného místa než od čela válečků).
+- Mírné podhodnocení (asi −0,6 %) odpovídá teplotní závislosti rychlosti zvuku – kód počítá s 343 m/s (20 °C).
+- Kalibrace je v `config.py` vypnutá (`CAL_SCALE = 1.0`, `CAL_OFFSET_CM = 0.0`), třída `HCSR04` ji ale umí.
 
 
