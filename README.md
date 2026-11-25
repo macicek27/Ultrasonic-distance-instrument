@@ -54,7 +54,7 @@ flowchart LR
 
 ### Simulace ve Wokwi
 
-Simulace: **https://wokwi.com/projects/481664043221044225** (zdroj schématu: [`wokwi/diagram.json`](wokwi/diagram.json))
+Simulace: **https://wokwi.com/projects/481664234164703233** (zdroj schématu: [`wokwi/diagram.json`](wokwi/diagram.json))
 
 ### Piny Raspberry Pi Pico W
 
